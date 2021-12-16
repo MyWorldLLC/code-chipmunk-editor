@@ -3,6 +3,7 @@
     "displayName": "Chipmunk",
     "description": "VS Code syntax highlighting & code folding support for the Chipmunk programming language.",
     "publisher": "MyWorldLLC",
+    "repository": "https://github.com/MyWorldLLC/code-chipmunk-editor",
     "version": "0.0.1",
     "engines": {
         "vscode": "^1.63.0"

@@ -1,0 +1,263 @@
+{
+  "scopeName": "source.chipmunk",
+  "name": "Chipmunk",
+  "fileTypes": [
+    "chp"
+  ],
+  "foldingStartMarker": "{",
+  "foldingStopMarker": "}",
+  "patterns": [
+    {
+      "include": "#code"
+    }
+  ],
+  "repository": {
+    "code": {
+      "patterns": [
+        {
+          "include": "#comment"
+        },
+        {
+          "include": "#class"
+        },
+        {
+          "include": "#constants"
+        },
+        {
+          "include": "#keywords"
+        },
+        {
+          "include": "#var"
+        },
+        {
+          "include": "#method-call"
+        },
+        {
+          "include": "#identifier"
+        }
+      ]
+    },
+    "comment": {
+      "begin": "#",
+      "end": "$",
+      "name": "comment.line.number-sign"
+    },
+    "method-call": {
+      "begin": "([A-Za-z_$]+)\\s*(\\()",
+			"beginCaptures": {
+				"1": {
+					"name": "entity.name.function.chipmunk"
+				},
+				"2": {
+					"name": "punctuation.definition.parameters.begin.bracket.round.chipmunk"
+				}
+			},
+			"end": "\\)",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.definition.parameters.end.bracket.round.chipmunk"
+				}
+			},
+			"name": "meta.method-call.chipmunk",
+			"patterns": [
+				{
+					"include": "#code"
+				}
+			]
+    },
+    "class": {
+			"begin": "(?=\\w?[\\w\\s-]*\\b(?:class)\\s+[\\w$]+)",
+			"end": "}",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.section.class.end.bracket.curly.chipmunk"
+				}
+			},
+			"name": "meta.class.chipmunk",
+			"patterns": [
+				{
+					"include": "#comments"
+				},
+				{
+					"captures": {
+						"1": {
+							"name": "storage.modifier.chipmunk"
+						},
+						"2": {
+							"name": "entity.name.type.class.chipmunk"
+						}
+					},
+					"match": "(class)\\s+([\\w$]+)",
+					"name": "meta.class.identifier.chipmunk"
+				},
+				{
+					"begin": "{",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.section.class.begin.bracket.curly.chipmunk"
+						}
+					},
+					"end": "(?=})",
+					"contentName": "meta.class.body.chipmunk",
+					"patterns": [
+						{
+							"include": "#code"
+						}
+					]
+				}
+			]
+		},
+    "var": {
+			"begin": "\\b(?<!\\$)(var)(?![a-zA-Z0-9_])",
+			"end": "(?=\\=|$)",
+			"name": "meta.definition.variable.chipmunk",
+			"patterns": [
+				{
+					"match": "([A-Za-z_][\\w$]*)(?=\\s*(\\[\\])*\\s*(\\=|$))",
+					"captures": {
+						"1": {
+							"name": "variable.other.definition.chipmunk"
+						}
+					}
+				},
+				{
+					"include": "#code"
+				}
+			]
+		},
+    "constants": {
+      "patterns": [
+        {
+          "match": "\\b(?<!\\$)(true|false|null)(?![a-zA-Z0-9_])",
+          "name": "constant.language"
+        },
+        {
+          "match": "\\b(?<!\\$)(0b|0B)[01_]+",
+          "name": "constant.numeric.binary.chipmunk"
+        },
+        {
+          "match": "\\b(?<!\\$)(0o|0O)[0-7_]+",
+          "name": "constant.numeric.octal.chipmunk"
+        },
+        {
+          "match": "\\b(?<!\\$)(0x|0X)[a-fA-F0-9_]+",
+          "name": "constant.numeric.hex.chipmunk"
+        },
+        {
+          "match": "\\b(?<!\\$)[0-9]*\\.[0-9]+((e|E)-?[0-9]+)?",
+          "name": "constant.numeric.float.chipmunk"
+        },
+        {
+          "match": "\\b(?<!\\$)[0-9][0-9]*",
+          "name": "constant.numeric.integer.chipmunk"
+        },
+        {
+          "begin": "\"",
+          "end": "\"",
+          "name": "string.quoted.double.chipmunk",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.begin.chipmunk"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.end.chipmunk"
+            }
+          },
+          "patterns": [
+            {
+              "match": "\\\\.",
+              "name": "constant.character.escape.chipmunk"
+            }
+          ]
+        },
+        {
+          "begin": "'",
+          "end": "'",
+          "name": "string.quoted.single.chipmunk",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.begin.chipmunk"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.end.chipmunk"
+            }
+          },
+          "patterns": [
+            {
+              "match": "\\\\.",
+              "name": "constant.character.escape.chipmunk"
+            }
+          ]
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "match": "\\W?\\bmodule(?![a-zA-Z0-9_])",
+          "name": "keyword"
+        },
+        {
+          "match": "\\W?\\bimport(?![a-zA-Z0-9_])",
+          "name": "keyword"
+        },
+        {
+          "match": "\\W?\\bfrom(?![a-zA-Z0-9_])",
+          "name": "keyword"
+        },
+        {
+          "match": "\\W?\\bclass(?![a-zA-Z0-9_])",
+          "name": "storage.type.class"
+        },
+        {
+          "match": "\\b(?<!\\$)(var|trait|shared|self)(?![a-zA-Z0-9_])",
+          "name": "storage.type.var"
+        },
+        {
+          "match": "\\b(?<!\\$)def(?![a-zA-Z0-9_])",
+          "name": "storage.type.function"
+        },
+        {
+          "match": "\\b(?<!\\$)(continue|break|return|throw)(?![a-zA-Z0-9_])",
+          "name": "keyword.control"
+        },
+        {
+          "match": "\\b(?<!\\$)(for|while)(?![a-zA-Z0-9_])",
+          "name": "keyword.control"
+        },
+        {
+          "match": "\\b(?<!\\$)(if|else)(?![a-zA-Z0-9_])",
+          "name": "keyword.control"
+        },
+        {
+          "match": "\\b(?<!\\$)(try|catch|finally)(?![a-zA-Z0-9_])",
+          "name": "keyword.control"
+        },
+        {
+          "match": "new(?![a-zA-Z0-9_])",
+          "name": "keyword"
+        },
+        {
+          "match": "\\b(?<!\\$)(as|in|is|instanceof)(?![a-zA-Z0-9_])",
+          "name": "keyword.control"
+        }
+      ]
+    },
+    "identifier": {
+      "patterns": [
+        {
+          "match": "[A-Z][a-zA-Z0-9_]*",
+          "name": "entity.name.type.class.chipmunk"
+        },
+        {
+          "match": "[a-zA-Z_][a-zA-Z0-9_]*",
+          "name": "variable"
+        }
+      ]
+    }
+  }
+}
